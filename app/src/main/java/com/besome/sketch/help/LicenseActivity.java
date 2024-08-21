@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 
+import androidx.activity.EdgeToEdge;
+
 import com.sketchware.remod.R;
 import com.sketchware.remod.databinding.ActivityOssLibrariesBinding;
+
 import com.besome.sketch.lib.base.BaseAppCompatActivity;
 
 import a.a.a.oB;
@@ -17,6 +20,7 @@ public class LicenseActivity extends BaseAppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+         EdgeToEdge.enable(this);
          super.onCreate(savedInstanceState);
          binding = ActivityOssLibrariesBinding.inflate(getLayoutInflater());
          setContentView(binding.getRoot());
