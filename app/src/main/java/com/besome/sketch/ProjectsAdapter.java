@@ -1,5 +1,7 @@
 package com.besome.sketch;
 
+import static mod.Edward.KOC.ProjectTools.ProjectToolsManager.showProjectSettingV2Dialog;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -44,7 +46,6 @@ import a.a.a.yB;
 import mod.hey.studios.project.ProjectSettingsDialog;
 import mod.hey.studios.project.backup.BackupRestoreManager;
 import mod.hey.studios.util.Helper;
-import mod.hilal.saif.activities.android_manifest.AndroidManifestInjection;
 
 public class ProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final ProjectsFragment projectsFragment;
@@ -277,6 +278,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             }
                         }
                         case 4 -> showProjectSettingDialog(projectMap);
+                        case 5 -> showProjectSettingV2Dialog(v.getContext(), projectMap);
                     }
                 } else if (v.getId() == R.id.confirm_yes) {
                     projectMap.put("confirmation", true);

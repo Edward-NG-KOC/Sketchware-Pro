@@ -55,7 +55,7 @@ import com.besome.sketch.editor.component.ComponentAddActivity;
 import com.besome.sketch.editor.logic.BlockPane;
 import com.besome.sketch.editor.logic.LogicTopMenu;
 import com.besome.sketch.editor.logic.PaletteBlock;
-import com.besome.sketch.editor.logic.PaletteSelector;
+import mod.Edward.KOC.Logic.PaletteSelectorXSearch;
 import com.besome.sketch.editor.makeblock.MakeBlockActivity;
 import com.besome.sketch.editor.manage.ShowBlockCollectionActivity;
 import com.besome.sketch.editor.view.ViewDummy;
@@ -126,7 +126,7 @@ public class LogicEditorActivity extends BaseAppCompatActivity implements View.O
     private final Handler Z = new Handler();
     private final int[] v = new int[2];
     public ProjectFileBean M;
-    private PaletteSelector l;
+    private PaletteSelectorXSearch l;
     private Toolbar k;
     public PaletteBlock m;
     public BlockPane o;
@@ -1889,6 +1889,7 @@ public class LogicEditorActivity extends BaseAppCompatActivity implements View.O
         if (!super.isStoragePermissionGranted()) {
             finish();
         }
+        PaletteSelectorXSearch.ResetSavedInfo();
         Parcelable parcelable;
         if (savedInstanceState == null) {
             B = getIntent().getStringExtra("sc_id");
