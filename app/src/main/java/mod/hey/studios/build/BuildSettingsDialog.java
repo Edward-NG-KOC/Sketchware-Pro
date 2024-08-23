@@ -16,9 +16,12 @@ import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.color.MaterialColors;
+
 import com.sketchware.remod.R;
 
 import mod.SketchwareUtil;
+import mod.trindadedev.ui.components.SKTextField;
 
 public class BuildSettingsDialog {
 
@@ -60,7 +63,7 @@ public class BuildSettingsDialog {
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.setText(title);
         textView.setTextSize(14f);
-        textView.setTextColor(com.google.android.material.R.attr.colorPrimary);
+        textView.setTextColor(MaterialColors.getColor(textView, com.google.android.material.R.attr.colorPrimary));
         textView.setTypeface(null, Typeface.BOLD);
         textView.setPadding(
                 0,
@@ -88,7 +91,7 @@ public class BuildSettingsDialog {
             radioButton.setLayoutParams(layoutParams);
             radioButton.setId(View.generateViewId());
             radioButton.setText(choice);
-            radioButton.setTextColor(0xff000000);
+            radioButton.setTextColor(MaterialColors.getColor(radioButton, com.google.android.material.R.attr.colorOnSurface));
             radioButton.setTextSize(16f);
 
             if (settings.getValue(key, defaultValue).equals(choice)) {
@@ -128,7 +131,7 @@ public class BuildSettingsDialog {
         String value = settings.getValue(key, defaultValue ? "true" : "false");
         checkBox.setText(label);
         checkBox.setChecked(value.equals("true"));
-        checkBox.setTextColor(0xff000000);
+        checkBox.setTextColor(MaterialColors.getColor(checkBox, com.google.android.material.R.attr.colorOnSurface));
         checkBox.setPadding(
                 (int) getDip(4),
                 (int) getDip(8),
@@ -148,9 +151,8 @@ public class BuildSettingsDialog {
         return checkBox;
     }
 
-    private EditText addInputPref(String key, String defaultValue, String hint, int inputType, LinearLayout addTo) {
-        TextInputLayout textInputLayout = new TextInputLayout(activity);
-
+    private EditText addInputPref(String key, String defaultValue, String hint, int inputType, LinearLayout addTo) {        
+        var textField = new SKTextField(activity);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -160,31 +162,14 @@ public class BuildSettingsDialog {
                 0,
                 0
         );
+        textField.setLayoutParams(layoutParams);
+        textField.setHint(hint);
+        textField.setText(settings.getValue(key, defaultValue));
+        textField.getEditText().setTag(key);
+        textField.getEditText().setInputType(inputType);
+        
+        addTo.addView(textField);
 
-        textInputLayout.setLayoutParams(layoutParams);
-
-        addTo.addView(textInputLayout);
-
-        EditText editText = new EditText(activity);
-        editText.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        editText.setPadding(
-                (int) getDip(4),
-                (int) getDip(8),
-                (int) getDip(8),
-                (int) getDip(8)
-        );
-        editText.setTextSize(16f);
-        editText.setTextColor(0xff000000);
-        editText.setHint(hint);
-        editText.setHintTextColor(0xff607d8b);
-        editText.setText(settings.getValue(key, defaultValue));
-        editText.setTag(key);
-        editText.setInputType(inputType);
-
-        textInputLayout.addView(editText);
-
-        return editText;
+        return textField.getEditText();
     }
 }
